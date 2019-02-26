@@ -12,8 +12,11 @@
     "npm_pack": "cd dist/ldg-auth0-svc && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
     "clean": "rm -r dist && rm -r node_modules/ldg-auth0-svc",
+    "copy_license": "cp ./LICENSE ./dist/ldg-auth0-svc",
+    "copy_readme": "cp ./README.md ./dist/ldg-auth0-svc",
+    "copy": "npm run copy_license && npm run copy_readme",
     "npm_install": "npm install ./dist/ldg-auth0-svc/ldg-auth0-svc-0.0.1.tgz",
-    "pack_install": "npm run clean && npm run package && npm run npm_install"
+    "pack_install": "npm run clean && npm run package && npm run copy && npm run npm_install"
   },
   "private": true,
   "dependencies": {

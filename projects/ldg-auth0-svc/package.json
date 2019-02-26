@@ -1,9 +1,13 @@
 {
   "name": "ldg-auth0-svc",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This library enhances the Auth0-js lib, and provides out of the box functionality for supporting the Auth0 platform.",
   "keywords": ["auth0", "openid", "openauth", "identity"],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
