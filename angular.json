@@ -3,33 +3,33 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ldg-auto0-svc": {
-      "root": "projects/ldg-auto0-svc",
-      "sourceRoot": "projects/ldg-auto0-svc/src",
+    "ldg-auth0-svc": {
+      "root": "projects/ldg-auth0-svc",
+      "sourceRoot": "projects/ldg-auth0-svc/src",
       "projectType": "library",
       "prefix": "ldgas",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ldg-auto0-svc/tsconfig.lib.json",
-            "project": "projects/ldg-auto0-svc/ng-package.json"
+            "tsConfig": "projects/ldg-auth0-svc/tsconfig.lib.json",
+            "project": "projects/ldg-auth0-svc/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ldg-auto0-svc/src/test.ts",
-            "tsConfig": "projects/ldg-auto0-svc/tsconfig.spec.json",
-            "karmaConfig": "projects/ldg-auto0-svc/karma.conf.js"
+            "main": "projects/ldg-auth0-svc/src/test.ts",
+            "tsConfig": "projects/ldg-auth0-svc/tsconfig.spec.json",
+            "karmaConfig": "projects/ldg-auth0-svc/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ldg-auto0-svc/tsconfig.lib.json",
-              "projects/ldg-auto0-svc/tsconfig.spec.json"
+              "projects/ldg-auth0-svc/tsconfig.lib.json",
+              "projects/ldg-auth0-svc/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -166,5 +166,5 @@
       }
     }
   },
-  "defaultProject": "ldg-auto0-svc"
+  "defaultProject": "ldg-auth0-svc"
 }

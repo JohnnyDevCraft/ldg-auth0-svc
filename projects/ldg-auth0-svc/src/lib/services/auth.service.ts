@@ -1,9 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
-import {BehaviorSubject, config, Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {auth0} from 'auth0-js';
-import {ConfigurationModel} from '../models/ConfigurationModel';
+import {ConfigurationModel} from '../models/configuration.model';
 import {CallbackComponent} from '../components/callback/callback.component';
+import {SettingsModel} from '../models/settings.model';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,9 @@ export class AuthService {
     new BehaviorSubject(true);
   private _userProfile: BehaviorSubject<any> =
     new BehaviorSubject<any>({});
+
+  private _settings: BehaviorSubject<SettingsModel> =
+    new BehaviorSubject(null);
 
   private _timer;
 
@@ -39,6 +43,10 @@ export class AuthService {
     return this._isExpired.asObservable();
   }
 
+  public get Settings(): Observable<SettingsModel> {
+    return this._settings.asObservable();
+  }
+
   private set ExpiresAt(val: number) {
     this._expiresAt.next(val);
     this.runTimer();
@@ -52,11 +60,13 @@ export class AuthService {
     this._idToken.next(val);
   }
 
-  constructor(@Inject(ConfigurationModel)private configuration: ConfigurationModel,
+  constructor(@Inject(ConfigurationModel) private configuration: ConfigurationModel,
               public router: Router) {
     router.config.push(
       {path: configuration.Settings.callbackRouteName, component: CallbackComponent}
     );
+
+    this._settings.next(configuration.Settings);
   }
 
   private runTimer() {
