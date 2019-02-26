@@ -10,7 +10,10 @@
     "e2e": "ng e2e",
     "build_lib": "ng build ldg-auth0-svc",
     "npm_pack": "cd dist/ldg-auth0-svc && npm pack",
-    "package": "npm run build_lib && npm run npm_pack"
+    "package": "npm run build_lib && npm run npm_pack",
+    "clean": "rm -r dist && rm -r node_modules/ldg-auth0-svc",
+    "npm_install": "npm install ./dist/ldg-auth0-svc/ldg-auth0-svc-0.0.1.tgz",
+    "pack_install": "npm run clean && npm run package && npm run npm_install"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +29,7 @@
     "auth0": "^2.14.0",
     "auth0-js": "^9.10.0",
     "core-js": "^2.5.4",
+    "ldg-auth0-svc": "file:dist/ldg-auth0-svc/ldg-auth0-svc-0.0.1.tgz",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },

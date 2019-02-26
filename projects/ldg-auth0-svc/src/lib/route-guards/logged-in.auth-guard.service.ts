@@ -17,13 +17,21 @@ export class LoggedInAuthGuardService implements CanActivate, OnDestroy {
 
   canActivate(): boolean {
     if (!this.auth.IdToken) {
+      this.debug(`Authentication Failed: Redirecting user to ${this.settings.unauthorizedRouteName}`);
       this.router.navigate([this.settings.unauthorizedRouteName]);
       return false;
     }
+    this.debug('Authentication successful.  Routing Allowed.');
     return true;
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(x => x.unsubscribe());
+  }
+
+  private debug(message: string) {
+    if (this.settings.isDebugMode) {
+      console.log(message);
+    }
   }
 }

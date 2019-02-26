@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ldg-auto0-svc",
+  "dest": "../../dist/ldg-auth0-svc",
   "lib": {
     "entryFile": "src/public_api.ts"
   }

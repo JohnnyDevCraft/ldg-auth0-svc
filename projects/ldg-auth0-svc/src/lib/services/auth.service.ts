@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {auth0} from 'auth0-js';
+import * as auth0 from 'auth0-js';
 import {ConfigurationModel} from '../models/configuration.model';
 import {CallbackComponent} from '../components/callback/callback.component';
 import {SettingsModel} from '../models/settings.model';
@@ -19,6 +19,8 @@ export class AuthService {
     new BehaviorSubject(true);
   private _userProfile: BehaviorSubject<any> =
     new BehaviorSubject<any>({});
+
+  private settings: SettingsModel;
 
   private _settings: BehaviorSubject<SettingsModel> =
     new BehaviorSubject(null);
@@ -67,6 +69,7 @@ export class AuthService {
     );
 
     this._settings.next(configuration.Settings);
+    this.settings = configuration.Settings;
   }
 
   private runTimer() {
@@ -79,6 +82,7 @@ export class AuthService {
   }
 
   public login(): void {
+    console.log('Logging in.');
     this.auth0.authorize();
   }
 
@@ -96,6 +100,7 @@ export class AuthService {
   }
 
   private localLogin(authResult): void {
+    this.debug(`Processing login with: \n${JSON.stringify(authResult)}`);
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     // Set the time that the access token will expire at
@@ -104,11 +109,14 @@ export class AuthService {
     this.loadProfile(authResult.accessToken);
     this._idToken.next(authResult.idToken);
     this.ExpiresAt = expiresAt;
+    this.debug(`Login Processed.`);
   }
 
   public renewTokens(): void {
+    this.debug('Running Renew Tokens.');
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this.debug('Renew successful: Updating Login Info.');
         this.localLogin(authResult);
       } else if (err) {
         alert(
@@ -138,10 +146,23 @@ export class AuthService {
     }
 
     const self = this;
+
+    this.debug(`attempting to get profile. \nAccessToken: ${accessToken}`);
+
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
+        this.debug(`Recieved Profile: \n${JSON.stringify(profile)}`);
         self._userProfile.next(profile);
+        this.debug(`Profile saved to Subject.`);
       }
     });
   }
+
+  private debug(message: string){
+    if(this.settings.isDebugMode){
+      console.log(message);
+    }
+  }
+
+
 }

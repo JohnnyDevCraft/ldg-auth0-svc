@@ -18,11 +18,11 @@
       "dom"
     ],
     "paths": {
-      "ldg-auto0-svc": [
-        "dist/ldg-auto0-svc"
+      "ldg-auth0-svc": [
+        "dist/ldg-auth0-svc"
       ],
-      "ldg-auto0-svc/*": [
-        "dist/ldg-auto0-svc/*"
+      "ldg-auth0-svc/*": [
+        "dist/ldg-auth0-svc/*"
       ]
     }
   }

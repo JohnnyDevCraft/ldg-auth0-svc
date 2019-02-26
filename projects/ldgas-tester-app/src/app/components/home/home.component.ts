@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../../../ldg-auto0-svc/src/lib/services/auth.service';
+import {AuthService} from 'ldg-auth0-svc';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   logon() {
+    console.log('attempting login.');
     this.auth.login();
   }
 

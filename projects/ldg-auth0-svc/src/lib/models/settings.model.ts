@@ -3,4 +3,5 @@ export class SettingsModel {
   postCallbackRouteName: string;
   postLogoutRouteName: string;
   unauthorizedRouteName: string;
+  isDebugMode: boolean;
 }
