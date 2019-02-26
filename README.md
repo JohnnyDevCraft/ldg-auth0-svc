@@ -1,27 +1,61 @@
 # LdgAuth0Security
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
+This project provides basic components and services for interacting with the auth0-js library.
 
-## Development server
+•••This project includes a test application, and to use it you will need to run `npm run pack_install`.  
+Doing so will build, pack, and install the library.  After doing this simply running the `nmm start` command will 
+launch the test application in on port 4200.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+•••You will need to install the dependency prior to building using the `npm install` command.
 
-## Code scaffolding
+•••The following code should be added to your Module in the imports section for projects consuming this library.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```typescript
+LdgAuth0SvcModule.forRoot(
+      {
+      Settings: {
+        callbackRouteName: 'auth-hook',
+        unauthorizedRouteName: 'home',
+        postCallbackRouteName: 'dashboard',
+        postLogoutRouteName: 'home',
+        isDebugMode: true
+      },
+      Config: {
+        clientID: 'oWw9pkKjPZ5X42to7AZa6uVl4Q3XOTs0',
+        domain: 'blazor-budget2.auth0.com',
+        responseType: 'token id_token',
+        redirectUri: 'http://localhost:4200/auth-hook',
+        audience: 'agile-family',
+        scope: 'openid profile full-access'
+      }
+      })
+```
 
-## Build
+#SettingsModel: Settings
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+•••This controls how the module operates.  It's properties modify routing based on authentication events handled by the library.
 
-## Running unit tests
+###unauthorizedRouteName: string
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+•••This property tells the library what path you are routing failed authentication attempt to.  You should probably set this to a login page, or an error page for handling 
+authentication failures.  It is routed to when the AuthGuard is used, and the user is not logged in.
 
-## Running end-to-end tests
+###postCallbackRouteName: string
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+•••This defines the path that users are redirected to after their login is processed.
 
-## Further help
+###postLogoutRouteName: string
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+•••This defines the path that users are redirected to after a logout is processed.
+
+###isDebugMode: boolean
+
+•••When set to true, the library will log debug information to the console.
+
+
+#ConfigModule: config
+
+•••This object should contain the configuration settings for your auth0 tenant.
+
+see the test project for more details on using this library.
+
